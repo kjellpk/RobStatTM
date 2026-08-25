@@ -39,8 +39,12 @@
 #'
 initPP <- KurtSDNew <- function(X, muldirand=20, muldifix=10,dirmin=1000) {
 
-  oldSeed <- get(".Random.seed", mode="numeric", envir=globalenv())
-  on.exit(assign(".Random.seed", oldSeed, envir=globalenv()))
+  oldSeed <- get0(".Random.seed", mode="numeric", envir=globalenv())
+
+  if (!is.null(oldSeed)) {
+    on.exit(assign(".Random.seed", oldSeed, envir=globalenv()))
+  }
+
 
 n0=dim(X)[1]; p=dim(X)[2]
 nmxpass = 10         # max number of passes through basic outlier identification
